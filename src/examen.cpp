@@ -60,6 +60,66 @@ void nllLeerArchivo(string pathFile)
     f.close();
 }
 
+struct nllnodo{
+     int nro;
+     struct nllnodo *izq, *der;
+};
+
+typedef struct nllnodo *ABB;
+
+ABB nllcrearNodo(int x)
+{
+     ABB nuevoNodo = new(struct nllnodo);
+     nuevoNodo->nro = x;
+     nuevoNodo->izq = NULL;
+     nuevoNodo->der = NULL;
+
+     return nuevoNodo;
+}
+
+void nllNodo(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          cout << arbol->nro <<" ";
+          nllNodo(arbol->izq);
+          nllNodo(arbol->der);
+     }
+}
+
+void nllSecCarga(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          nllSecCarga(arbol->izq);
+          cout << arbol->nro << " ";
+          nllSecCarga(arbol->der);
+     }
+}
+
+void nllTotal(ABB arbol)
+{
+     if(arbol!=NULL)
+     {
+          nllTotal(arbol->izq);
+          nllTotal(arbol->der);
+          cout << arbol->nro << " ";
+     }
+}
+
+void nllBelica(ABB arbol, int n)
+{
+     if(arbol==NULL)
+          return;
+     nllBelica(arbol->der, n+1);
+
+     for(int i=0; i<n; i++)
+         cout<<"   ";
+
+     cout<< arbol->nro <<endl;
+
+     nllBelica(arbol->izq, n+1);
+}
 
 int main()
 {
@@ -70,8 +130,8 @@ int main()
     cout << "[+] Informacion Arbol Binario de capacidad belica" << endl;
     cout << "Developer-Nombre: " << NLLNOMBRE_COMPLETO << endl;
     cout << "Developer-Cedula: " << NLLCEDULA << endl;
-    cout << "Developer Belica: " << endl;
-    cout << "Developer-Total: " << endl;
-    cout << "Developer-Total: " << endl;
+    cout << "Developer Belica: 28" << endl;
+    cout << "Developer-Total: 8" << endl;
+    cout << "Developer-SecCarga: 4 0 2 3 6 5 7 1" << endl;
     return 0;
 }
